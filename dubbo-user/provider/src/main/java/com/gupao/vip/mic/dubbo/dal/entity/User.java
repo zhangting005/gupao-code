@@ -15,7 +15,7 @@ public class User {
 
     private String password;
 
-    private String realName;
+    private String realname;
 
     private String avatar;
 
@@ -51,12 +51,12 @@ public class User {
         this.password = password;
     }
 
-    public String getRealName() {
-        return realName;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
     public String getAvatar() {
@@ -105,7 +105,6 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", realName='" + realName + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", sex='" + sex + '\'' +

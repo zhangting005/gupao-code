@@ -7,7 +7,6 @@
         http://code.alibabatech.com/schema/dubbo
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
 
-
     <bean id="connectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
         <property name="connectionFactory">
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">
@@ -19,12 +18,9 @@
         <property name="maxConnections" value="50"/>
     </bean>
     <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg index="0" value="spring-queue"/>
+        <constructor-arg index="0" value="register-queue"/>
     </bean>
 
-    <!--<bean id="destinationTopic" class="org.apache.activemq.command.ActiveMQTopic">
-        <constructor-arg index="0" value="spring-topic"/>
-    </bean>-->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="connectionFactory"/>
         <property name="defaultDestination" ref="destination"/>
@@ -33,6 +29,11 @@
         </property>
     </bean>
 
+    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="destination"/>
+        <property name="messageListener" ref="messageListener"/>
+    </bean>
 
-
+    <bean id="messageListener" class="com.gupao.vip.mic.dubbo.jms.RegisterQueueMessageListener"/>
 </beans>

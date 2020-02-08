@@ -13,32 +13,26 @@ public class JmsReceiver {
 
     public static void main(String[] args) {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("" +
-                "tcp://localhost:61616");
+                "failover:(tcp://192.168.11.140:61616,tcp://192.168.11.137:61616)?randomize=false");
         Connection connection = null;
         try {
             //创建连接
             connection = connectionFactory.createConnection();
             connection.start();
             connectionFactory.setDispatchAsync(false);
-            //Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
-            Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+            Session session = connection.createSession(Boolean.FALSE, Session.DUPS_OK_ACKNOWLEDGE);
+
             //创建队列（如果队列已经存在则不会创建， first-queue是队列名称）
             //destination表示目的地
-            Destination destination = session.createQueue("third-queue");
+            Destination destination = session.createQueue("first-queue");
             //创建消息接收者
             MessageConsumer consumer = session.createConsumer(destination);
 
-           /* consumer.setMessageListener(new MessageListener() {
-                @Override
-                public void onMessage(Message message) {
-                    System.out.println();
-                }
-            });*/
-            for(int i=0;i<1;i++){
+            for(int i=0;i<10;i++){
                 TextMessage textMessage = (TextMessage) consumer.receive();
                 System.out.println(textMessage.getText());
             }
-            session.commit();
+//            session.commit();
             session.close();
         } catch (JMSException e) {
             e.printStackTrace();

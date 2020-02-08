@@ -13,7 +13,7 @@ public class JmsTopicSender {
 
     public static void main(String[] args) {
         ConnectionFactory connectionFactory=new ActiveMQConnectionFactory("" +
-                "tcp://192.168.153.129:61616");
+                "tcp://192.168.11.140:61616");
         Connection connection=null;
         try {
             //创建连接
@@ -27,7 +27,7 @@ public class JmsTopicSender {
             Destination destination=session.createTopic("first-topic");
             //创建消息发送者
             MessageProducer producer=session.createProducer(destination);
-            TextMessage textMessage=session.createTextMessage("今天心情，晴转多云~~~");
+            TextMessage textMessage=session.createTextMessage("今天心情，晴转多云");
             producer.send(textMessage);
             session.commit();
             session.close();

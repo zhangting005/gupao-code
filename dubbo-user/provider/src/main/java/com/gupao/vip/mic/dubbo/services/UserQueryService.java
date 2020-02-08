@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("userQueryService")
 public class UserQueryService implements IUserQueryService{
-    Logger logger= LoggerFactory.getLogger(UserLoginService.class);
+    Logger logger= LoggerFactory.getLogger(UserCoreService.class);
 
     @Autowired
     UserMapper userMapper;
@@ -39,7 +39,7 @@ public class UserQueryService implements IUserQueryService{
             if(user!=null){
                 response.setAvatar(user.getAvatar());
                 response.setSex(user.getSex());
-                response.setRealName(user.getRealName());
+                response.setRealName(user.getRealname());
                 response.setMobile(user.getMobile());
                 return response;
             }
@@ -77,7 +77,7 @@ public class UserQueryService implements IUserQueryService{
             if(user!=null){
                 response.setAvatar(user.getAvatar());
                 response.setSex(user.getSex());
-                response.setRealName(user.getRealName());
+                response.setRealName(user.getRealname());
                 response.setMobile(user.getMobile());
                 return response;
             }
